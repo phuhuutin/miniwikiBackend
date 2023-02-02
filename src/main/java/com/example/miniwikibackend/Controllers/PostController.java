@@ -42,4 +42,9 @@ public class PostController {
         return postService.getAllPosts(pageable);
     }
 
+    @GetMapping("/secured/hello")
+    public String TestHello(){
+        return "HEllo";
+    }
+
 }

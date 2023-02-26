@@ -23,11 +23,13 @@ import java.util.stream.Collectors;
 public class SecurityConfiguration    {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().disable();
         http.csrf().disable();
         http
                 .oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
+    http.authorizeRequests().antMatchers("/**").permitAll();
 
         return http.build();
     }

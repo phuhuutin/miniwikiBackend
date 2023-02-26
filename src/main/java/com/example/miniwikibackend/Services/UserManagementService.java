@@ -16,10 +16,10 @@ public class UserManagementService {
 
     private final FirebaseAuth firebaseAuth;
 
-    public void setUserClaims(String uid, WikiRole requestedPermissions) throws FirebaseAuthException {
+    public void setUserClaims(String uid) throws FirebaseAuthException {
 
 
-        Map<String, Object> claims = Map.of("custom_claims", requestedPermissions.toString());
+        Map<String, Object> claims = Map.of("custom_claims", WikiRole.WIKIUSER.toString());
 
         firebaseAuth.setCustomUserClaims(uid, claims);
     }

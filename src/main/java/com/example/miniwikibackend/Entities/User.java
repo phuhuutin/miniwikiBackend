@@ -2,6 +2,8 @@ package com.example.miniwikibackend.Entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,10 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "username")
+    @NotFound
     private String username;
     @Column(name = "email")
+    @NotFound
     private String email;
     @Column(name = "role")
     private String role;

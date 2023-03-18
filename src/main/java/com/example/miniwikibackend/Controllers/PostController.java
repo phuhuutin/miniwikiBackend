@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("http://localhost:3000/")
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
-//    @Autowired
-//    public PostController(PostRepository postRepository){
-//        this.postRepository = postRepository;
-//    }
+
     @GetMapping("/getPostById")
     public Post getPostbyId(@RequestParam Long postId ){
          Post thePost = this.postService.readPost(postId);

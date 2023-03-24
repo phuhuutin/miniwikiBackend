@@ -1,10 +1,15 @@
 package com.example.miniwikibackend.Entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +23,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-//    @Column(name = "user_id")
-//    private Long userId;
+
     @Column(name = "title")
     private String title;
     @Column(name="body")
@@ -41,4 +45,25 @@ public class Post {
     private LocalDateTime postdate ;
     @Column(name = "snippet")
     private String snippet;
+
+
+    @Convert(converter = UserListConverter.class)
+    @Column(name = "likelist", columnDefinition = "TEXT")
+    private List<String> likedUserList;
+
+//    private String likedUserListJson;
+//
+//    public void serializeCustomerAttributes() throws JsonProcessingException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        this.likedUserListJson = objectMapper.writeValueAsString(this.likedUserList);
+//    }
+//
+//    public void deserializeCustomerAttributes() throws IOException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        this.likedUserList = objectMapper.readValue(likedUserListJson,
+//                new TypeReference<List<String>>() {});
+//    }
+
+
+
 }

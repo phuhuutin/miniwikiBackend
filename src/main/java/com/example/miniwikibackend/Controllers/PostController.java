@@ -3,7 +3,9 @@ package com.example.miniwikibackend.Controllers;
 import com.example.miniwikibackend.DAO.PostRepository;
 import com.example.miniwikibackend.Entities.Post;
 import com.example.miniwikibackend.Services.PostService;
+import com.example.miniwikibackend.requests.AddLikeRequest;
 import com.example.miniwikibackend.requests.PostCreationRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +45,15 @@ public class PostController {
     @GetMapping("/secured/hello")
     public String TestHello(){
         return "HEllo";
+    }
+
+    @PutMapping("/addLike")
+    public ResponseEntity<Post> addLike(@RequestBody AddLikeRequest request) throws JsonProcessingException {
+        return ResponseEntity.ok(postService.addLike(request)) ;
+    }
+    @PutMapping("/removeLike")
+    public ResponseEntity<Post> removeLike(@RequestBody AddLikeRequest request) throws JsonProcessingException {
+        return ResponseEntity.ok(postService.removeLike(request)) ;
     }
 
 }

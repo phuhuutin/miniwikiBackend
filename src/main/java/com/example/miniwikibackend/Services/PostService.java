@@ -50,7 +50,7 @@ public class PostService {
         BeanUtils.copyProperties(post, postToCreate);
 
         postToCreate.setPostdate(LocalDateTime.now());
-
+        postToCreate.setLikedUserList(new ArrayList<String>());
         return postRepository.save(postToCreate);
     }
 

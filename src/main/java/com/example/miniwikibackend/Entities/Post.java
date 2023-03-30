@@ -51,18 +51,6 @@ public class Post {
     @Column(name = "likelist", columnDefinition = "TEXT")
     private List<String> likedUserList;
 
-//    private String likedUserListJson;
-//
-//    public void serializeCustomerAttributes() throws JsonProcessingException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        this.likedUserListJson = objectMapper.writeValueAsString(this.likedUserList);
-//    }
-//
-//    public void deserializeCustomerAttributes() throws IOException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        this.likedUserList = objectMapper.readValue(likedUserListJson,
-//                new TypeReference<List<String>>() {});
-//    }
 
 
 

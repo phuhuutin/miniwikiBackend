@@ -47,7 +47,7 @@ public class SecurityConfiguration    {
 //                .jwt()
 //                .jwtAuthenticationConverter(jwtAuthenticationConverter()).and();
   // http.authorizeRequests().antMatchers("/**").authenticated()
-        http.authorizeHttpRequests().antMatchers("/api/posts/secured/**").hasAuthority("WIKIUSER")
+        http.authorizeHttpRequests().antMatchers("/api/posts/secured/**").authenticated()
                 .and()
                 .addFilterBefore(new FirebaseAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

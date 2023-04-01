@@ -53,7 +53,6 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
         if (decodedToken != null) {
             user = new User();
 
-            user.setUid(decodedToken.getUid());
             user.setUsername(decodedToken.getName());
             user.setEmail(decodedToken.getEmail());
         }

@@ -2,6 +2,7 @@ package com.example.miniwikibackend.Controllers;
 
 import com.example.miniwikibackend.DAO.PostRepository;
 import com.example.miniwikibackend.Entities.Post;
+import com.example.miniwikibackend.Entities.User;
 import com.example.miniwikibackend.Services.PostService;
 import com.example.miniwikibackend.requests.AddLikeRequest;
 import com.example.miniwikibackend.requests.PostCreationRequest;
@@ -14,8 +15,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,21 +49,32 @@ public class PostController {
     }
 
     @GetMapping("/secured/hello")
-    public String TestHello(Authentication authentication){
-        log.info("say hello");
-        log.info("from " + authentication.getName() );
-        log.info(authentication.toString());
-        log.info(authentication.getDetails());
-        log.info(authentication.getAuthorities());
+    public String TestHello(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = (User)principal;
+
+        log.info(currentUser.getEmail());
+
         return "HEllo";
     }
 
     @PutMapping("/secured/addLike")
-    public ResponseEntity<Post> addLike(@RequestBody AddLikeRequest request) throws JsonProcessingException {
+    public ResponseEntity<Post> addLike(@RequestParam Long postId) throws JsonProcessingException {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = (User)principal;
+        AddLikeRequest request = new AddLikeRequest();
+        request.setUserEmail(currentUser.getEmail());
+        request.setPostId(postId);
+
         return ResponseEntity.ok(postService.addLike(request)) ;
     }
     @PutMapping("/secured/removeLike")
-    public ResponseEntity<Post> removeLike(@RequestBody AddLikeRequest request) throws JsonProcessingException {
+    public ResponseEntity<Post> removeLike(@RequestParam Long postId) throws JsonProcessingException {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = (User)principal;
+        AddLikeRequest request = new AddLikeRequest();
+        request.setUserEmail(currentUser.getEmail());
+        request.setPostId(postId);
         return ResponseEntity.ok(postService.removeLike(request)) ;
     }
 

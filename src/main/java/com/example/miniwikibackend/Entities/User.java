@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @JsonBackReference
     private List<Post> posts = new ArrayList<>();
 
-    private String uid;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

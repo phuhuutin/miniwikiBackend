@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="posts")
@@ -49,7 +50,7 @@ public class Post {
 
     @Convert(converter = UserListConverter.class)
     @Column(name = "likelist", columnDefinition = "TEXT")
-    private List<String> likedUserList;
+    private Set<String> likedUserList;
 
 
 

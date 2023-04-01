@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +48,7 @@ public class PostService {
         BeanUtils.copyProperties(post, postToCreate);
 
         postToCreate.setPostdate(LocalDateTime.now());
-        postToCreate.setLikedUserList(new ArrayList<String>());
+        postToCreate.setLikedUserList(new HashSet<>());
         return postRepository.save(postToCreate);
     }
 
@@ -62,10 +60,10 @@ public class PostService {
     public Post addLike(AddLikeRequest addlikerequest) throws JsonProcessingException {
         Optional<Post> post = postRepository.findById(addlikerequest.getPostId());
         if(post.isPresent()) {
-            List<String> currentList;
+            Set<String> currentList;
             if(post.get().getLikedUserList() != null) {
                 currentList = post.get().getLikedUserList();
-            } else currentList = new ArrayList<String>();
+            } else currentList = new HashSet<>();
 
             currentList.add(addlikerequest.getUserEmail());
             post.get().setLikedUserList(currentList);
@@ -76,10 +74,11 @@ public class PostService {
     public Post removeLike(AddLikeRequest addlikerequest) throws JsonProcessingException{
         Optional<Post> post = postRepository.findById(addlikerequest.getPostId());
         if(post.isPresent()) {
-            List<String> currentList;
+            Set<String> currentList;
             if(post.get().getLikedUserList() != null && post.get().getLikedUserList().contains(addlikerequest.getUserEmail()) ) {
                 currentList = post.get().getLikedUserList();
-            } else throw new EntityNotFoundException("This User does not already like the post");
+            }
+            else throw new EntityNotFoundException("This User does not already like the post");
 
 
             currentList.remove(addlikerequest.getUserEmail());

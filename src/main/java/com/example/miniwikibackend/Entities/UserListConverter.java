@@ -11,12 +11,15 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Converter
-public class UserListConverter implements AttributeConverter<List<String>, String> {
+public class UserListConverter implements AttributeConverter<Set<String>, String> {
 
     @Override
-    public String convertToDatabaseColumn(List<String> likedUserList) {
+    public String convertToDatabaseColumn(Set<String> likedUserList) {
         String customerInfoJson = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -29,12 +32,12 @@ public class UserListConverter implements AttributeConverter<List<String>, Strin
     }
 
     @Override
-    public List<String> convertToEntityAttribute(String likedUserListJson) {
-        List<String> likedUserList = new ArrayList<>();
+    public Set<String> convertToEntityAttribute(String likedUserListJson) {
+        Set<String> likedUserList = new HashSet<>();
         try {
             if(likedUserListJson != null){
                 ObjectMapper objectMapper = new ObjectMapper();
-                likedUserList = objectMapper.readValue(likedUserListJson, new TypeReference<List<String>>() {});
+                likedUserList = objectMapper.readValue(likedUserListJson, new TypeReference<Set<String>>() {});
             }
 
         } catch (final IOException e) {

@@ -40,7 +40,7 @@ public class SecurityConfiguration    {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //http.cors().disable();
+        http.cors();
         http.csrf().disable();
 //        http
 //                .oauth2ResourceServer()
